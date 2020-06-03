@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.pc.dao.StuMapper">
+    <select id="getStuList" resultType="Stu">
+        select * from mybatis.stu
+    </select>
+    <select id="getStuByid" resultType="com.pc.pojo.Stu" parameterType="int">
+        select * from mybatis.stu where id=#{id}
+    </select>
+    <insert id="insertStu" parameterType="com.pc.pojo.Stu">
+         insert into mybatis.stu(id, name, pwd) value (#{id}, #{name}, #{pwd})
+    </insert>
+    <update id="updateStu" parameterType="com.pc.pojo.Stu">
+        update mybatis.stu set name=#{name},pwd=#{pwd} where id=#{id};
+    </update>
+    <delete id="deleteStu" parameterType="int">
+        delete from mybatis.stu where id=#{id}
+    </delete>
+</mapper>

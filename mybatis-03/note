@@ -1,0 +1,29 @@
+要解决的问题：属性名和字段名不一致
+ private String password;   //密码和数据库不一样！
+ 结果:
+ Stu{id=1, name='pc', password='null'}
+ 查询出来发现 password 为空 . 说明出现了问题！
+ 分析：
+
+ select * from stu where id = #{id} 可以看做
+ select id,name,pwd from stu where id = #{id}
+
+ mybatis会根据这些查询的列名(会将列名转化为小写,数据库不区分大小写) , 去对应的实体类中查找相应列名的set方法设值 , 由于找不到setPwd() , 所以password返回null ; 【自动映射】
+ 解决方案
+ 方案一：为列名指定别名 , 别名和java实体类的属性名一致 .
+
+ <select id="selectUserById" resultType="com.pc.pojo.Stu">
+     select id , name , pwd as password from stu where id = #{id}
+ </select>
+ 方案二：使用结果集映射->ResultMap 【推荐】
+
+ <resultMap id="StuMap" type="Stu">
+         <!-- id为主键 -->
+         <id column="id" property="id"/>
+         <!-- column是数据库表的列名 , property是对应实体类的属性名 -->
+         <result column="name" property="name"/>
+         <result column="pwd" property="password"/>
+     </resultMap>
+     <select id="getStuById" resultMap="StuMap">
+      select * from mybatis.stu where id = #{id}
+  </select>

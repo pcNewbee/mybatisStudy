@@ -1,0 +1,16 @@
+1、导pom依赖
+2、写工具类MybatisUtils获取sqlSession
+生命周期与作用域：
+ SqlSessionFactoryBuilder：一旦创建了SqlSessionFactory就不再需要了
+ SqlSessionFactory：可以理解为数据库连接池，一旦被创建在应用的运行期间一直存在，没有任何理由丢弃他或者重新创建一个新的实例
+ 最佳作用域是应用作用域，可以通过单例模式或者静态单例模式实现
+ SqlSession:连接到数据库连接池的一个请求,需要关闭，线程不安全不能共享
+3、写配置类main\resources\mybatis-config.xml
+环境准备完成
+4、写实体类
+5、写接口StuMapper
+6、写StuMapper.xml,相当于接口的实现类.
+注意：resultType="com.pc.pojo.Stu"
+      namespace="com.pc.dao.StuMapper",包名要与接口包名完全一致
+      id="getStuList",对应mapper接口的方法名
+7、写测试类 增删改必须要提交事务

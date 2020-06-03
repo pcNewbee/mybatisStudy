@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.pc.dao.StuMapper">
+    <!--在当前Mapper.xml中使用二级缓存-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <!--在当前Mapper.xml中使用二级缓存-->
+    <!--<cache-->
+            <!--eviction="FIFO"-->
+            <!--flushInterval="60000"-->
+            <!--size="512"-->
+            <!--readOnly="true"/>-->
+    <!--这个更高级的配置创建了一个 FIFO 缓存，每隔 60 秒刷新，最多可以存储结果对象或列表的 512 个引用，
+    而且返回的对象被认为是只读的，因此对它们进行修改可能会在不同线程中的调用者产生冲突-->
+    <select id="getStuList" resultType="Stu">
+        select * from mybatis.stu
+    </select>
+    <select id="queryStuById" resultType="stu">
+    select * from mybatis.stu where id = #{id}
+</select>
+</mapper>

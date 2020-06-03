@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties">
+        <!--<property name="username" value="root"/> 优先识别外部文件配置属性-->
+    </properties>
+    <typeAliases>
+        <!-- 可以取别名代替mybatis-config.xml中的resultType="com.pc.pojo.Stu"中的全类名-->
+       <!-- <typeAlias type="com.pc.pojo.Stu" alias="Stu"/>-->
+        <!-- 第二种取别名：一般实体类多的情况下使用这一种 默认名字为这个实体类的类名小写-->
+        <!-- 第三种取别名：在实体类上面添加注解@Alias-->
+        <package name="com.pc.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <!-- type="JDBC|MANAGED"-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- type="POOLED|UNPOOLED|JNDI"-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册 -->
+    <mappers>
+        <!--<mapper class="com.pc.dao.StuMapper"/>也可使用这种方式注册mapper
+         但是必须满足以下两点：
+         接口与其对应的mapper配置文件必须同名
+         接口与其对应的mapper配置文件必须在一个包下
+         也可以使用通配
+        <mapper resource="com/pc/dao/*Mapper.xml"/>
+         -->
+        <mapper resource="com/pc/dao/StuMapper.xml"/>
+    </mappers>
+</configuration>

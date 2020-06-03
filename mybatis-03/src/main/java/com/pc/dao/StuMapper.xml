@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- namespace绑定一个对应的Dao/Mapper接口-->
+    <mapper namespace="com.pc.dao.StuMapper">
+    <resultMap id="StuMap" type="Stu">
+        <!-- id为主键 -->
+        <id column="id" property="id"/>
+        <!-- column是数据库表的列名 , property是对应实体类的属性名 -->
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>
+    <select id="getStuById" resultMap="StuMap">
+     select * from mybatis.stu where id = #{id}
+ </select>
+    <select id="getStuByLimit" parameterType="map" resultMap="StuMap">
+        select * from mybatis.stu limit #{startIndex}, #{pageSize}
+    </select>
+    <select id="getStuByRowBounds" resultMap="StuMap" >
+        select * from mybatis.stu
+    </select>
+</mapper>
